@@ -54,19 +54,19 @@ function Navbar() {
               <div className="flex items-center space-x-4">
                 <Link
                   href={"/About"}
-                  className="text-black hover:scale-95 hover:text-slate-500 rounded-md px-3 py-2 text-[1rem] font-medium"
+                  className="text-black hover:underline hover:underline-offset-4  rounded-md px-3 py-2 text-[1rem] font-medium"
                 >
                   About Us
                 </Link>
                 <Link
-                  href={"/ContactUs"}
-                  className="text-black hover:scale-95 hover:text-slate-500 rounded-md px-3 py-2 text-[1rem] font-medium"
+                  href={"/Manual"}
+                  className="text-black hover:underline hover:underline-offset-4  rounded-md px-3 py-2 text-[1rem] font-medium"
                 >
-                  Contact Us
+                  Manual
                 </Link>
                 <Link
                   href={"/FeedBack"}
-                  className="text-black hover:scale-95 hover:text-slate-500 rounded-md px-3 py-2 text-[1rem] font-medium"
+                  className="text-black hover:underline hover:underline-offset-4  rounded-md px-3 py-2 text-[1rem] font-medium"
                 >
                   Feedback
                 </Link>
