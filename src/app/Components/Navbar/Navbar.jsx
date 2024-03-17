@@ -46,8 +46,8 @@ function Navbar() {
           </div>
           <div className="flex flex-1 relative items-center justify-center sm:items-stretch sm:justify-start">
             <Link href={"/"} className="flex flex-shrink-0 items-center">
-              <h1 className="text-white  font-sans text-2xl cursor-pointer">
-                BDP Automate
+              <h1 className="text-white  font-sans  cursor-pointer font-semibold text-3xl">
+                <span className="text-yellow-700">Su</span><span className="text-3xl font-bold font-serif">i</span><span className="text-yellow-700">ch</span>
               </h1>
             </Link>
             <div className="absolute lg:block hidden right-[35%] ">
