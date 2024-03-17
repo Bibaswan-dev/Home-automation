@@ -5,45 +5,61 @@ import { FaLightbulb } from "react-icons/fa";
 import { GiLightBulb } from "react-icons/gi";
 import { HexColorPicker, HexColorInput } from "react-colorful";
 import { TbAirConditioning } from "react-icons/tb";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DashBoardMain({ data }) {
-  const getdetails = async () => {
-    let res = await fetch(
-      "https://kodessphere-api.vercel.app/devices/nWHFpQU",
-      {
-        method: "GET",
+  const teamid = "nWHFpQU";
+  // const getdetails = async () => {
+  //   let res = await fetch(
+  //     "https://kodessphere-api.vercel.app/devices/nWHFpQU",
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
+  //   let data = await res.json();
+
+  //   setfanspeed(data?.fan);
+  //   setisToggled(data?.bulb == 1 ? true : false);
+  //   setledcolor(data?.led || "#ffff");
+  //   setNumber(data?.ac.temp);
+  //   setisToggled1(data?.ac.state);
+  // };
+
+  const postfan = async () => {
+    try {
+      const data = {
+        teamid: teamid,
+        device: "fan",
+        value: fanspeed,
+      };
+      let res = await fetch("https://kodessphere-api.vercel.app/devices", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(data),
+      });
+      let response = await res.json();
+      console.log(response);
+      if (response.success === true) {
+        toast.success("Data updated..", {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        
       }
-    );
-    let data = await res.json();
-
-    setfanspeed(data?.fan);
-    setisToggled(data?.bulb == 1 ? true : false);
-    setledcolor(data?.led || "#ffff")
-    setNumber(data?.ac.temp)
-    setisToggled1(data?.ac.state)
-    
-  };
-
-  const postfan = async () => {
-    const data = {
-      teamid: teamid,
-      device: "fan",
-      value: fanspeed,
-    };
-    let res = await fetch("https://kodessphere-api.vercel.app/devices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    let response = await res.json();
-    console.log(response);
-    if (response.success === true) {
-      toast.success("Data updated..", {
+    } catch (error) {
+      toast.error("Fetch Failed.", {
         position: "bottom-left",
         autoClose: 1500,
         hideProgressBar: false,
@@ -56,23 +72,37 @@ function DashBoardMain({ data }) {
     }
   };
   const postbulb = async () => {
-    let v = isToggled?1:0
-    const data = {
-      teamid: teamid,
-      device: "bulb",
-      value: v,
-    };
-    let res = await fetch("https://kodessphere-api.vercel.app/devices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    let response = await res.json();
-    console.log(response);
-    if (response.success === true) {
-      toast.success("Data updated..", {
+    try {
+      let v = isToggled ? 1 : 0;
+      const data = {
+        teamid: teamid,
+        device: "bulb",
+        value: v,
+      };
+      let res = await fetch("https://kodessphere-api.vercel.app/devices", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      let response = await res.json();
+      console.log(response);
+      if (response.success === true) {
+        toast.success("Data updated..", {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        
+      }
+    } catch (error) {
+      toast.error("Fetch Failed.", {
         position: "bottom-left",
         autoClose: 1500,
         hideProgressBar: false,
@@ -85,22 +115,36 @@ function DashBoardMain({ data }) {
     }
   };
   const postled = async () => {
-    const data = {
-      teamid: teamid,
-      device: "led",
-      value: ledcolor,
-    };
-    let res = await fetch("https://kodessphere-api.vercel.app/devices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    let response = await res.json();
-    console.log(response);
-    if (response.success === true) {
-      toast.success("Data updated..", {
+    try {
+      const data = {
+        teamid: teamid,
+        device: "led",
+        value: ledcolor,
+      };
+      let res = await fetch("https://kodessphere-api.vercel.app/devices", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      let response = await res.json();
+      console.log(response);
+      if (response.success === true) {
+        toast.success("Data updated..", {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+      
+    } catch (error) {
+      toast.error("Fetch Failed.", {
         position: "bottom-left",
         autoClose: 1500,
         hideProgressBar: false,
@@ -113,34 +157,48 @@ function DashBoardMain({ data }) {
     }
   };
   const postac = async () => {
-    const acdatapost = { temp: actemp, state: isToggled1?1:0 };
-    const data = {
-      teamid: teamid,
-      device: "ac",
-      value: acdatapost,
-    };
-    let res = await fetch("https://kodessphere-api.vercel.app/devices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    let response = await res.json();
-    console.log(response);
-    if (response.success === true) {
-      toast.success("Data updated..", {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
+    try {
+      const acdatapost = { temp: actemp, state: isToggled1 ? 1 : 0 };
+      const data = {
+        teamid: teamid,
+        device: "ac",
+        value: acdatapost,
+      };
+      let res = await fetch("https://kodessphere-api.vercel.app/devices", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
-    } else {
-      toast.error("Data updated failed..", {
+      let response = await res.json();
+      console.log(response);
+      if (response.success === true) {
+        toast.success("Data updated..", {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        
+      } else {
+        toast.error("Data updated failed..", {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error("Fetch Failed.", {
         position: "bottom-left",
         autoClose: 1500,
         hideProgressBar: false,
@@ -158,11 +216,14 @@ function DashBoardMain({ data }) {
   // Function to increment the number
   const increment = () => {
     setNumber((prevNumber) => prevNumber + 1);
+    postac()
+    
   };
 
   // Function to decrement the number
   const decrement = () => {
     setNumber((prevNumber) => prevNumber - 1);
+    postac()
   };
   const dtemp = () => {
     actemp--;
@@ -176,7 +237,6 @@ function DashBoardMain({ data }) {
   const [Actionfan, setActionfan] = useState(false);
   const [fanspeed, setfanspeed] = useState(data?.fan);
   const [Actionled, setActionled] = useState(false);
-  const [Actionac, setActionac] = useState(false);
 
   const [ledcolor, setledcolor] = useState(data?.led || "#ffff");
 
@@ -185,6 +245,7 @@ function DashBoardMain({ data }) {
   const [isToggled, setisToggled] = useState(data?.bulb == 1 ? true : false);
 
   const toggleSwitch = () => {
+    postbulb();
     setisToggled(!isToggled);
     console.log(isToggled); // Switch between true and false
   };
@@ -192,12 +253,25 @@ function DashBoardMain({ data }) {
   const [isToggled1, setisToggled1] = useState(data?.bulb == 1 ? true : false);
 
   const toggleSwitch1 = () => {
+    postac();
     setisToggled1(!isToggled1);
     console.log(isToggled1); // Switch between true and false
   };
 
   return (
     <>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <h1 className="lg:text-3xl text-xl font-sans mt-10 lg:px-2 px-4 text-white text-center font-semibold ">
         Smart Home Control Panel
       </h1>
@@ -233,7 +307,10 @@ function DashBoardMain({ data }) {
               <p className="text-xl ">Bulb</p>
               <p>Status : {isToggled ? "ON" : "OFF"}</p>
             </div>
-            <div className=" px-4 py-4 justify-between shadow-lg items-center bg-slate-700/80 rounded-xl h-20 text-white mb-4">
+            <div
+              style={{ backgroundColor: ledcolor }}
+              className=" px-4 py-4 justify-between shadow-lg items-center bg-slate-700/80 rounded-xl h-20 text-white mb-4"
+            >
               <p className="text-xl ">LED</p>
               <p>Colour : {ledcolor}</p>
             </div>
@@ -278,7 +355,7 @@ function DashBoardMain({ data }) {
                         htmlFor="unitcharges"
                         className=" font-semibold mb-2"
                       >
-                        Base Charges
+                        Fan Speed
                       </label>
 
                       <input
@@ -289,6 +366,7 @@ function DashBoardMain({ data }) {
                         max="100"
                         onChange={(e) => {
                           setfanspeed(e.target.value / 20);
+                          postfan();
                         }}
                         className="w-full h-2 bg-gray-200 rounded-lg cursor-pointer "
                       />
@@ -307,11 +385,7 @@ function DashBoardMain({ data }) {
                     </div>
                     <div className="text-center  mt-4">
                       <input
-                        value={Math.ceil(fanspeed)}
-                        // onChange={(e) => {
-                        //   setcalculateclicked(false);
-                        //   (displayobj = {}), setfanspeed(e.target.value / 10);
-                        // }}
+                        value={Math.floor(fanspeed)}
                         type="text"
                         readOnly={true}
                         className="p-2 w-20  rounded-md border-2 text-center  placeholder:italic border-blue-400 bg-slate-800 text-white"
@@ -367,21 +441,21 @@ function DashBoardMain({ data }) {
                 className=" px-4 py-4 justify-between shadow-lg items-center bg-slate-700/80 rounded-xl h-20 text-white mb-4"
               >
                 <p className="text-xl ">LED</p>
-                <span>Color : {ledcolor} </span>
+                <span>Colour : {ledcolor} </span>
               </div>
               {!Actionled ? (
                 <button
                   onClick={() => setActionled(true)}
                   className="absolute top-5 bg-blue-500 p-2 rounded right-4"
                 >
-                  Adjust color
+                  Adjust colour
                 </button>
               ) : (
                 <button
                   onClick={() => setActionled(false)}
                   className="absolute top-5 bg-rose-500 p-2 rounded right-4"
                 >
-                  close color
+                  close colour
                 </button>
               )}
               {Actionled && (
@@ -397,7 +471,8 @@ function DashBoardMain({ data }) {
                   />
                   <button
                     onClick={() => {
-                      console.log(ledcolor);
+                      setActionled(false);
+                      postled();
                     }}
                     className="mx-auto rounded-md bg-slate-700/70 p-2 my-4 "
                   >
@@ -411,7 +486,7 @@ function DashBoardMain({ data }) {
               <div className=" px-4 py-4 justify-between shadow-lg items-center bg-slate-700/80 rounded-xl h-36 text-white mb-4">
                 <p className="text-xl ">AC</p>
                 <p>status : {isToggled1 ? "ON" : "OFF"}</p>
-                <p>Tempareture : {number}</p>
+                <p>Temperature : {number}</p>
               </div>
 
               <button className="absolute top-2 p-2 rounded right-4">
