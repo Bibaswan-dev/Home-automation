@@ -6,7 +6,7 @@ import Footer from "./Components/Footer/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Home Automation",
+  title: "Suich - Home Automation Application",
   description: "Created by Lunatic",
 };
 
